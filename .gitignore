@@ -1,0 +1,29 @@
+# Ignore Python bytecode and compiled files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environment
+venv/
+.env/
+
+# OS / editor / IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Jupyter/IPython
+.ipynb_checkpoints/
+
+# Logs / temporary files
+*.log
+*.tmp
+*.bak
+
+# Environment / keys
+*.env
+config.json
+
+# Audio files (if generated)
+*.mp3

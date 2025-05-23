@@ -17,8 +17,8 @@ if st.button("Analyze News"):
     else:
         with st.spinner("Analyzing..."):
             try:
-                url = "http://127.0.0.1:5000/analyze"
-                response = requests.post(url, json={"company": company_name}, timeout=30)
+                url = "http://172.20.10.2:5000/analyze"
+                response = requests.post(url, json={"company": company_name}, timeout=120)
 
                 if response.status_code == 200:
                     data = response.json()
