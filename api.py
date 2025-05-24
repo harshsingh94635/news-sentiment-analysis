@@ -15,11 +15,9 @@ app = Flask(__name__)
 
 NEWSAPI_KEY = "bf5d8ff575214d8f8e70888191b83d63"  # Replace with your actual NewsAPI key
 
-
 @app.route('/')
 def home():
     return "Welcome to the News Summarization & Sentiment Analysis API!"
-
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
@@ -29,11 +27,12 @@ def analyze():
         return jsonify({"error": "No company provided"}), 400
 
     try:
-        # 1. Fetch news articles
+        print(f"Fetching news for: {company}")
         articles = fetch_news_from_newsapi(company, api_key=NEWSAPI_KEY, page_size=10)
+        print(f"Fetched {len(articles)} articles")
 
-        # 2. Process each article: summarize, sentiment, translate summary, and TTS
         for i, art in enumerate(articles, start=1):
+            print(f"Processing article {i}")
             summary_en = summarize_article(art["content"])  # English summary
             sentiment = analyze_sentiment(art["content"])
 
@@ -66,12 +65,12 @@ def analyze():
             "Final Sentiment Analysis (Hindi)": final_text_hi,
             "Final Audio File": final_audio_file
         }
+        print("Returning response")
         return jsonify(response_data), 200
 
     except Exception as e:
+        print(f"Error in /analyze: {e}")
         return jsonify({"error": str(e)}), 500
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-
