@@ -2,6 +2,7 @@
 import streamlit as st
 import requests
 import os
+API_URL = os.getenv("API_URL", "https://news-sentiment-analysis-1pzl.onrender.com")
 
 st.set_page_config(page_title="News Summarization & Sentiment Analysis (Hindi TTS)", layout="wide")
 
@@ -17,7 +18,7 @@ if st.button("Analyze News"):
     else:
         with st.spinner("Analyzing..."):
             try:
-                url = "http://172.20.10.2:5000/analyze"
+                url = f"{API_URL}/analyze"
                 response = requests.post(url, json={"company": company_name}, timeout=120)
 
                 if response.status_code == 200:
