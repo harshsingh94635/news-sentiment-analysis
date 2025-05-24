@@ -1,4 +1,5 @@
 # api.py
+import traceback
 from flask import Flask, request, jsonify
 from utils import (
     fetch_news_from_newsapi,
@@ -70,6 +71,7 @@ def analyze():
 
     except Exception as e:
         print(f"Error in /analyze: {e}")
+        traceback.print_exc()
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
