@@ -18,7 +18,13 @@ def fetch_news_from_newsapi(company, api_key, page_size=10):
         "sortBy": "relevancy"
     }
     response = requests.get(url, params=params)
-    data = response.json()
+    try:
+        data = response.json()
+    except Exception as e:
+        print("Failed to decode NewsAPI response as JSON!")
+        print("Status code:", response.status_code)
+        print("Response text:", response.text)
+        raise
     if data.get("status") != "ok":
         raise Exception(data.get("message", "Error fetching news from NewsAPI"))
     articles = []
